@@ -15,7 +15,8 @@ export default async function handler(req, res) {
 
     res.status(200).json({ total, page, limit, drugs });
   } catch (e) {
-    console.error('Error fetching drugs:', e);
-    res.status(500).json({ error: 'Unable to connect to database' });
+    console.error('Error fetching drugs:', e.message); // Log the error message
+    console.error(e.stack); // Log the error stack for more details
+    res.status(500).json({ error: 'Unable to connect to database', details: e.message });
   }
 }

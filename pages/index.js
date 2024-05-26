@@ -4,7 +4,7 @@ export default function Home() {
   const [drugs, setDrugs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [page, setPage] = useState(1);  
+  const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const limit = 10;
 
@@ -15,7 +15,7 @@ export default function Home() {
         if (response.ok) {
           const data = await response.json();
           setDrugs(data.drugs);
-          setTotal(data.total); 
+          setTotal(data.total);
         } else {
           throw new Error(`Error fetching data: ${response.statusText}`);
         }
@@ -28,7 +28,7 @@ export default function Home() {
     };
 
     fetchData();
-  }, [page]);  
+  }, [page]);
 
   if (loading) {
     return <p>Loading...</p>;
