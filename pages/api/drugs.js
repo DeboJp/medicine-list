@@ -1,12 +1,3 @@
-// import fs from 'fs';
-// import path from 'path';
-
-// export default function handler(req, res) {
-//   const filePath = path.resolve('public', 'drug_list.json');
-//   const jsonData = fs.readFileSync(filePath, 'utf8');
-//   const data = JSON.parse(jsonData);
-//   res.status(200).json(data);
-// }
 import clientPromise from '../../lib/mongodb';
 
 export default async function handler(req, res) {
@@ -21,11 +12,10 @@ export default async function handler(req, res) {
 
     const drugs = await collection.find({}).skip(skip).limit(limit).toArray();
     const total = await collection.countDocuments({});
-    
+
     res.status(200).json({ total, page, limit, drugs });
   } catch (e) {
     console.error('Error fetching drugs:', e);
     res.status(500).json({ error: 'Unable to connect to database' });
   }
 }
-

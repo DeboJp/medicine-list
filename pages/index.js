@@ -2,40 +2,41 @@ import { useEffect, useState } from 'react';
 
 export default function Home() {
   const [drugs, setDrugs] = useState([]);
-  const [page, setPage] = useState(1);
-  const [total, setTotal] = useState(0);
-  const limit = 10;
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(`/api/drugs?page=${page}&limit=${limit}`);
+        const response = await fetch('/api/drugs?page=1&limit=10');
         if (response.ok) {
           const data = await response.json();
           setDrugs(data.drugs);
-          setTotal(data.total);
         } else {
-          console.error('Error fetching data');
+          throw new Error(`Error fetching data: ${response.statusText}`);
         }
       } catch (error) {
-        console.error('Error fetching data:', error);
+        console.error('Error fetching data:', error.message);
+        setError(error.message);
+      } finally {
+        setLoading(false);
       }
     };
 
     fetchData();
-  }, [page]);
+  }, []);
 
-  const handleNextPage = () => {
-    if (page * limit < total) {
-      setPage(page + 1);
-    }
-  };
+  if (loading) {
+    return <p>Loading...</p>;
+  }
 
-  const handlePreviousPage = () => {
-    if (page > 1) {
-      setPage(page - 1);
-    }
-  };
+  if (error) {
+    return <p>Error: {error}</p>;
+  }
+
+  if (drugs.length === 0) {
+    return <p>No drugs found.</p>;
+  }
 
   return (
     <div>
@@ -55,10 +56,10 @@ export default function Home() {
         ))}
       </ul>
       <div>
-        <button onClick={handlePreviousPage} disabled={page === 1}>
+        <button onClick={() => setPage(page - 1)} disabled={page === 1}>
           Previous
         </button>
-        <button onClick={handleNextPage} disabled={page * limit >= total}>
+        <button onClick={() => setPage(page + 1)} disabled={page * limit >= total}>
           Next
         </button>
       </div>
