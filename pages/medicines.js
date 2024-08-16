@@ -1,7 +1,8 @@
+// pages/medicines.js
 import { useEffect, useState } from 'react';
 import MedicineCard from '../components/MedicineCard';
 
-export default function Home() {
+export default function Medicines() {
   const [drugs, setDrugs] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
