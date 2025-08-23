@@ -2,8 +2,6 @@
 
 ![Demo](https://github.com/user-attachments/assets/807edb1f-7d7f-4d09-b0e7-c4e4f56a6ae5)
 
----
-
 ## Summary
 
 Medicine List was envisioned as a **bridge between data-driven prediction and accessible healthcare knowledge**. The goal was to create a personalized, technically rigorous platform where a user could input symptoms, receive probabilistic disease predictions, and immediately explore verified drug information alongside practical precautions. At its heart, the project is both a technical experiment in fusing **Next.js, TensorFlow, and live FDA APIs**, and a humble attempt at addressing the disconnection many feel when navigating complex medical access and information.
